@@ -2,7 +2,7 @@
 
 from django.urls import path
 from . import views
-
+#URL patterns are given below to switch from one page to another
 urlpatterns = [
     path('', views.landing_page, name='landing_page'),
     path('networking/', views.networking_page, name='networking_page'),
