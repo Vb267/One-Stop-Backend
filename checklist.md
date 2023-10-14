@@ -237,6 +237,10 @@ INSTALLED_APPS = (
     'corsheaders',
     ...
 )
+```
+
+```python
+# {{projectname}}/settings.py
 
 MIDDLEWARE = [
     ...,
@@ -244,6 +248,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     ...,
 ]
+```
+
+```python
+# {{projectname}}/settings.py
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
