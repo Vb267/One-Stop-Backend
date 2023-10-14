@@ -2,6 +2,7 @@
 
 Welcome to the One Stop Backend
 Pre-Requisite: Python
+
 ## 1. Set up Django
 
 ### 1.1 Virtual Environment
@@ -218,6 +219,35 @@ urlpatterns = [
 
 ```bash
 python manage.py runserver
+```
+
+## 5. Allow CORS
+
+```bash
+pip install django-cors-headers
+```
+
+Add these in `{{projectname}}/settings.py`
+
+```python
+# {{projectname}}/settings.py
+
+INSTALLED_APPS = (
+    ...
+    'corsheaders',
+    ...
+)
+
+MIDDLEWARE = [
+    ...,
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    ...,
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
 ```
 
 - Go to http://localhost:8000 & see the API root.
