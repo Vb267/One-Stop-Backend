@@ -1,6 +1,6 @@
 # One Stop Backend
 
-Welcome to the One Stop Backend
+Welcome to the One Stop Backend  
 Pre-Requisite: Python
 
 ## 1. Set up Django
@@ -8,10 +8,10 @@ Pre-Requisite: Python
 ### 1.1 Virtual Environment
 
 Setup a Virtual Environment.
-Example. To create a virtual environment using venv
+Example. To create a virtual environment using venv (ONE TIME)
 
 ```bash
-python -m venv env
+python -m venv env 
 ```
 
 Activate the virtual Environment
@@ -20,7 +20,7 @@ Activate the virtual Environment
 source env/bin/activate
 ```
 
-### 1.2 Install Django
+### 1.2 Install Django (ONE TIME)
 
 ```bash
 pip install django djangorestframework
