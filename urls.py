@@ -1,4 +1,4 @@
-# onestop_app/urls.py
+# onestop/urls.py
 
 from django.urls import path
 from . import views
@@ -9,4 +9,5 @@ urlpatterns = [
     path('mentorship/', views.mentorship_page, name='mentorship_page'),
     path('resources/', views.resources_page, name='resources_page'),
     path('jobsinternships/', views.jobsinternships_page, name='jobsinternships_page'),
+    path('signup/', views.signup, name='signup'),
 ]
