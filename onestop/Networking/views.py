@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def networking_view(request):
+    # Your networking view logic
+    return render(request, 'networking.html')
