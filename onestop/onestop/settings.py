@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'SignUp',
-    'Chat'
+    'Chat',
+    'Resources',
     
 ]
 
@@ -55,6 +56,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'onestop.urls'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
 
 TEMPLATES = [
     {

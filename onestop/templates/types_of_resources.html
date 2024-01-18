@@ -1,0 +1,99 @@
+<!-- templates/types_of_resources.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Item List</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .item-card {
+        background-color: #8b5cf6;
+        color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
+      }
+
+      .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      .pagination a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #6c3bb1;
+        border-radius: 5px;
+        margin: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .pagination a:hover {
+        background-color: #4b236b;
+      }
+
+      .pagination .current {
+        padding: 10px;
+        background-color: #4b236b;
+        border-radius: 5px;
+        margin: 5px;
+      }
+
+      .pagination span {
+        display: block;
+        padding: 10px;
+        color: #fff;
+        background-color: #6c3bb1;
+        border-radius: 5px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Item List</h1>
+
+    {% for item in items %}
+    <div class="item-card">
+      <h2>{{ item.name }}</h2>
+      <p>{{ item.description }}</p>
+    </div>
+    {% endfor %}
+
+    <div class="pagination">
+      <span class="step-links">
+        {% if items.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ items.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+
+        {% if items.has_next %}
+        <a href="?page={{ items.next_page_number }}">next</a>
+        <a href="?page={{ items.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+  </body>
+</html>

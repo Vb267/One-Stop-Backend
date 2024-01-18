@@ -8,5 +8,6 @@ urlpatterns = [
     path('Chat/', include('Chat.urls')),
     path('mentorship/',include('Mentorship.urls')),
     path('networking/',include('Networking.urls')),
-    path('landingpage/',include('Landing_Page.urls'))
+    path('landingpage/',include('Landing_Page.urls')),
+    path('resources/',include('Resources.urls'))
 ]
