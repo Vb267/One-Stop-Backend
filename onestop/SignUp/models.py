@@ -1,51 +1,42 @@
+
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
-
-class ProfileChoice(models.Model):
-    PROFILE_CHOICES = (
-        ('Student', 'Student'),
-        ('Alumni', 'Alumni'),
-        ('Admin', 'Admin'),
+class CustomUser(AbstractUser):
+    USER_TYPES = (
+        ('admin', 'Admin'),
+        ('student', 'Student'),
+        ('alumni', 'Alumni'),
     )
-    profile_type = models.CharField(
-        max_length=10,
-        choices=PROFILE_CHOICES,
-        default='Student',
-    )
+    user_type = models.CharField(max_length=10, choices=USER_TYPES)
 
-class Student_Profile(models.Model):
-  studid=models.AutoField(primary_key=True)
-  fname=models.CharField(max_length=50)
-  mname=models.CharField(max_length=50)
-  lname=models.CharField(max_length=50)
-  emailid=models.EmailField(max_length=254)
-  phnum=models.CharField(max_length=10)
-  about=models.TextField()
-  dob=models.DateField((""), auto_now=False, auto_now_add=False)
-  class_year=models.CharField(max_length=10)
-  branch=models.CharField(max_length=50)
-  domain=models.CharField(max_length=50)
+class Alumni(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=15)
+    branch = models.CharField(max_length=50)
+    domain = models.CharField(max_length=50)
+    date_of_birth = models.DateField()
+    passout_year = models.IntegerField()
+    company = models.CharField(max_length=100)
 
-class Alumni_Profile(models.Model):
-  alumniid=models.AutoField(primary_key=True)
-  fname=models.CharField(max_length=50)
-  mname=models.CharField(max_length=50)
-  lname=models.CharField(max_length=50)
-  emailid=models.EmailField(max_length=254)
-  phnum=models.CharField(max_length=10)
-  about=models.TextField()
-  dob=models.DateField((""), auto_now=False, auto_now_add=False)
-  company=models.CharField(max_length=50)#Current Company
-  sctc=models.IntegerField(max_length=10)#Starting CTC
-  cctc=models.BigIntegerField(max_length=20)#Current CTC
-  aoe=models.CharField(max_length=50)#Area of Expertise 
-  
+class Student(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=15)
+    branch = models.CharField(max_length=50)
+    year = models.IntegerField()
+    date_of_birth = models.DateField()
+    area_of_interest = models.CharField(max_length=100)  # You may want to consider using a ManyToManyField
 
-class Admin_Profile(models.Model):
-  fname=models.CharField(max_length=50)
-  mname=models.CharField(max_length=50)
-  lname=models.CharField(max_length=50)
-  emailid=models.EmailField(max_length=254)
-  phnum=models.CharField(max_length=10)
+class Admin(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=15)
 

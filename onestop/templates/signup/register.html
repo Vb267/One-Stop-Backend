@@ -1,0 +1,15 @@
+<!-- accounts/templates/accounts/register.html -->
+
+{% extends 'base.html' %} {% block content %}
+<h2>Register</h2>
+
+<form method="post" action="{% url 'register' %}">
+  {% csrf_token %} {% if user_type == 'alumni' %} {{ form.as_p }} {% elif
+  user_type == 'student' %} {{ form.as_p }} {% elif user_type == 'admin' %} {{
+  form.as_p }} {% endif %}
+
+  <button type="submit">Register</button>
+</form>
+
+<p>Already registered? <a href="{% url 'login' %}">Login</a></p>
+{% endblock %}

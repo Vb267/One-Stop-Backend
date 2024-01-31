@@ -1,14 +1,19 @@
 from django.contrib import admin
 from django.urls import path,include
-from SignUp.views import Student_ProfileViewSet
 from rest_framework import routers
+from . import views
 
 
-router=routers.DefaultRouter()
-router.register(r'signup',Student_ProfileViewSet)
 
 urlpatterns = [
-   path('',include(router.urls))
+   path('signup/', views.signup_view, name='signup'),
+    path('login/', views.login_view, name='login'),
+    path('home/', views.home_view, name='home'),
+    path('user_list/', views.user_list, name='user_list'),
+    
+    path('alumni_registration/', views.alumni_registration, name='alumni_registration'),
+    path('student_registration/', views.student_registration,name='student_registration'),
+    path('admin_registration/', views.admin_registration, name='admin_registration'),
    
 
 

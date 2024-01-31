@@ -1,5 +1,5 @@
 from django.db import models
-from SignUp.models import Alumni_Profile, Student_Profile
+from SignUp.models import Alumni, Student
 
 
 

@@ -1,0 +1,25 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Onestop{% endblock %}</title>
+    <!-- Add your CSS links, meta tags, and other head elements here -->
+  </head>
+  <body>
+    <header>
+      <h1>{% block header %}One-Stop{% endblock %}</h1>
+      <!-- Add navigation or other header elements here -->
+    </header>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer>
+      <!-- Add footer content here -->
+    </footer>
+
+    <!-- Add your JavaScript scripts or links here -->
+  </body>
+</html>
