@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import CustomUserCreationForm, CustomAuthenticationForm,AlumniForm, StudentForm, AdminForm
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 def login_view(request):
     if request.method == 'POST':
@@ -24,56 +26,44 @@ def user_list(request):
 def home_view(request):
     return JsonResponse({'message': 'Welcome to the home page!'})
 
+@api_view(['POST'])
 def signup_view(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            
-            # Redirect to the appropriate registration page based on user type
-            if user.user_type == 'alumni':
-                return JsonResponse({'message': 'Alumni registration successful!'})
-            elif user.user_type == 'student':
-                return JsonResponse({'message': 'Student registration successful!'})
-            elif user.user_type == 'admin':
-                return JsonResponse({'message': 'Admin registration successful!'})
+    form = CustomUserCreationForm(request.POST)
+    if form.is_valid():
+        user = form.save()
+        return Response({'message': 'User registration successful!'})
     else:
-        form = CustomUserCreationForm()
-    return JsonResponse({'error': 'Invalid request method'})
+        return Response(form.errors, status=400)
 
+@api_view(['POST'])
 def alumni_registration(request):
-    if request.method == 'POST':
-        form = AlumniForm(request.POST)
-        if form.is_valid():
-            alumni = form.save(commit=False)
-            alumni.user = request.user
-            alumni.save()
-            return JsonResponse({'message': 'Alumni registration successful!'})
+    form = AlumniForm(request.POST)
+    if form.is_valid():
+        alumni = form.save(commit=False)
+        alumni.user = request.user
+        alumni.save()
+        return Response({'message': 'Alumni registration successful!'})
     else:
-        form = AlumniForm()
-    return JsonResponse({'error': 'Invalid request method'})
+        return Response(form.errors, status=400)
 
+@api_view(['POST'])
 def student_registration(request):
-    if request.method == 'POST':
-        form = StudentForm(request.POST)
-        if form.is_valid():
-            student = form.save(commit=False)
-            student.user = request.user
-            student.save()
-            return JsonResponse({'message': 'Student registration successful!'})
+    form = StudentForm(request.POST)
+    if form.is_valid():
+        student = form.save(commit=False)
+        student.user = request.user
+        student.save()
+        return Response({'message': 'Student registration successful!'})
     else:
-        form = StudentForm()
-    return JsonResponse({'error': 'Invalid request method'})
+        return Response(form.errors, status=400)
 
+@api_view(['POST'])
 def admin_registration(request):
-    if request.method == 'POST':
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            admin = form.save(commit=False)
-            admin.user = request.user
-            admin.save()
-            return JsonResponse({'message': 'Admin registration successful!'})
+    form = AdminForm(request.POST)
+    if form.is_valid():
+        admin = form.save(commit=False)
+        admin.user = request.user
+        admin.save()
+        return Response({'message': 'Admin registration successful!'})
     else:
-        form = AdminForm()
-    return JsonResponse({'error': 'Invalid request method'})
+        return Response(form.errors, status=400)
