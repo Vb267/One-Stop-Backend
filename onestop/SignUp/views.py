@@ -3,9 +3,7 @@ from .models import CustomUser,Alumni, Student, Admin
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import CustomUserCreationForm, CustomAuthenticationForm,AlumniForm, StudentForm, AdminForm
-
-
-
+from django.http import JsonResponse
 
 def login_view(request):
     if request.method == 'POST':
@@ -13,28 +11,18 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')  # Change 'home' to your desired home page
+            return JsonResponse({'message': 'Login successful!'})
     else:
         form = CustomAuthenticationForm()
-    return render(request, 'signup/login.html', {'form': form})
-
-# accounts/views.py
-
-
+    return JsonResponse({'error': 'Invalid request method'})
 
 def user_list(request):
     users = CustomUser.objects.all()
-    return render(request, 'signup/user_list.html', {'users': users})
-
+    user_data = [{'id': user.id, 'username': user.username, 'email': user.email} for user in users]
+    return JsonResponse({'users': user_data})
 
 def home_view(request):
-    return render(request, 'signup/home.html')  # Replace 'accounts/home.html' with your actual template path
-
-
-
-# accounts/views.py
-
-
+    return JsonResponse({'message': 'Welcome to the home page!'})
 
 def signup_view(request):
     if request.method == 'POST':
@@ -45,14 +33,14 @@ def signup_view(request):
             
             # Redirect to the appropriate registration page based on user type
             if user.user_type == 'alumni':
-                return redirect('alumni_registration')
+                return JsonResponse({'message': 'Alumni registration successful!'})
             elif user.user_type == 'student':
-                return redirect('student_registration')
+                return JsonResponse({'message': 'Student registration successful!'})
             elif user.user_type == 'admin':
-                return redirect('admin_registration')
+                return JsonResponse({'message': 'Admin registration successful!'})
     else:
         form = CustomUserCreationForm()
-    return render(request, 'signup/signup.html', {'form': form})
+    return JsonResponse({'error': 'Invalid request method'})
 
 def alumni_registration(request):
     if request.method == 'POST':
@@ -61,10 +49,10 @@ def alumni_registration(request):
             alumni = form.save(commit=False)
             alumni.user = request.user
             alumni.save()
-            return redirect('home')  # Change 'home' to your desired home page
+            return JsonResponse({'message': 'Alumni registration successful!'})
     else:
         form = AlumniForm()
-    return render(request, 'signup/alumni_registration.html', {'form': form})
+    return JsonResponse({'error': 'Invalid request method'})
 
 def student_registration(request):
     if request.method == 'POST':
@@ -73,10 +61,10 @@ def student_registration(request):
             student = form.save(commit=False)
             student.user = request.user
             student.save()
-            return redirect('home')  # Change 'home' to your desired home page
+            return JsonResponse({'message': 'Student registration successful!'})
     else:
         form = StudentForm()
-    return render(request, 'signup/student_registration.html', {'form': form})
+    return JsonResponse({'error': 'Invalid request method'})
 
 def admin_registration(request):
     if request.method == 'POST':
@@ -85,7 +73,7 @@ def admin_registration(request):
             admin = form.save(commit=False)
             admin.user = request.user
             admin.save()
-            return redirect('home')  # Change 'home' to your desired home page
+            return JsonResponse({'message': 'Admin registration successful!'})
     else:
         form = AdminForm()
-    return render(request, 'signup/admin_registration.html', {'form': form})
+    return JsonResponse({'error': 'Invalid request method'})
